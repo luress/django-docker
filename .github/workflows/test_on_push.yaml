@@ -18,7 +18,7 @@ jobs:
         run: pycodestyle ./project/*.py
       - name: Tests
         run: python manage.py test
-  build_and_pub :
+  build_and_pub:
     needs: [run_test]
     runs-on: [ubuntu-latest]
     env:
