@@ -19,7 +19,7 @@ jobs:
       - name: Tests
         run: python manage.py test
   build_and_pub:
-    needs: [run_test]
+    needs: [run_tests]
     runs-on: [ubuntu-latest]
     env:
       LOGIN: ${{ secrets.DOCKER_LOGIN }}
