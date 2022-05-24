@@ -1,5 +1,6 @@
 from django.test import Client, TestCase
 
+
 class IndexTestCase(TestCase):
     def setUp(self) -> None:
         self.client = Client()
