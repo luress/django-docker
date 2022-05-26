@@ -54,7 +54,7 @@ class UserCreationForm(forms.ModelForm):
 
 class UserChangeForm(forms.ModelForm):
     """A form for updating users. Includes all the fields on
-    the user, but replaces the password field with admin's
+    the user, but replaces the password field with admin'
     disabled password hash display field.
     """
     password = ReadOnlyPasswordHashField()
