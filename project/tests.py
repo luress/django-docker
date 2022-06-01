@@ -31,6 +31,10 @@ class RegisterTestForm(TestCase):
             'date_of_birth': '2000-03-03'
         })
         self.assertTrue(form.is_valid())
+        user = form.save()
+        self.assertEqual(user.email, 'lures@example.com')
+        self.assertEqual(user.first_name,'Yurii')
+        self.assertEqual(user.date_of_birth, '2000-03-03')
 
     def test_signup_form_no_data(self):
         form = RegisterForm(data={})
