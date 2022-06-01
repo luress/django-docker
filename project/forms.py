@@ -17,4 +17,4 @@ class RegisterForm(forms.Form):
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-input'}),
                                 label='Your name', max_length=100)
     date_of_birth = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-input'}, ), label='Date of birth')
-    gender = forms.ChoiceField(choices=GENDERS)
+    #gender = forms.ChoiceField(choices=GENDERS)
