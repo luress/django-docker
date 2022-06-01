@@ -31,3 +31,9 @@ class RegisterTestForm(TestCase):
             'date_of_birth': '2000-03-03'
         })
         self.assertTrue(form.is_valid())
+
+    def test_signup_form_no_data(self):
+        form = RegisterForm(data={})
+
+        self.assertFalse(form.is_valid())
+        self.assertEquals(len(form.errors), 4)
