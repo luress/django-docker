@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'djangoProject1.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'musicdb',
-        'USER': 'lures',
-        'PASSWORD': 'Korelo77',
-        'HOST': 'musicappdb.cl8cvp0w3x0b.eu-north-1.rds.amazonaws.com',
+        'NAME': 'music',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'database-1.c9ujogqesc4r.eu-central-1.rds.amazonaws.com',
         'PORT': '5432',
         'TEST': {
             'NAME': 'mytestdatabase'
