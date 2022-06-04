@@ -87,6 +87,9 @@ DATABASES = {
         'PASSWORD': 'Korelo77',
         'HOST': 'musicappdb.cl8cvp0w3x0b.eu-north-1.rds.amazonaws.com',
         'PORT': '5432',
+        'TEST': {
+            'NAME': 'mytestdatabase'
+        }
     }
 }
 
