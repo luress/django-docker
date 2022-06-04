@@ -2,4 +2,26 @@
 
 
 {% block body %}
+
+
+    <footer id="audio-container">
+        <input type="range" max="100" value="0" id="music-slider">
+        <div id="audio-info">
+            <div class="audio-now-playing">
+                <img class="image-now-playing" src={{ song.image.url }}>
+            </div>
+            <div class="audio-control">
+                <audio src="{{ song.audio_file.url }}" preload="metadata" loop></audio>
+                <span id="duration" class="time">0:00</span>
+                <span id="current-time" class="time">0:00</span>
+                <button id="play-button"></button>
+            </div>
+
+            <div class="audio-volume">
+
+            </div>
+
+        </div>
+    </footer>
+
 {% endblock %}

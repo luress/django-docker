@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media'
             ],
         },
     },
@@ -80,11 +81,20 @@ WSGI_APPLICATION = 'djangoProject1.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'musicdb',
+        'USER': 'lures',
+        'PASSWORD': 'Korelo77',
+        'HOST': 'musicappdb.cl8cvp0w3x0b.eu-north-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
+AWS_ACCESS_KEY_ID = 'AKIA2GY6R3KGVW75LPP3'
+AWS_SECRET_ACCESS_KEY = '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'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_STORAGE_BUCKET_NAME = 'musicfiels'
+AWS_S3_REGION_NAME = 'eu-north-1'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
