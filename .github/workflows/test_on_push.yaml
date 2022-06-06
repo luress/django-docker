@@ -13,6 +13,10 @@ jobs:
           POSTGRES_USER: ${{ secrets.DB_USER }}
           POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
           POSTGRES_DB: ${{ secrets.DB_NAME }}
+          AWS_S3_REGION_NAME: ${{ AWS_S3_REGION_NAME }}
+          AWS_STORAGE_BUCKET_NAME: ${{ AWS_STORAGE_BUCKET_NAME }}
+          AWS_SECRET_ACCESS_KEY: ${{ AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ AWS_ACCESS_KEY_ID }}
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -34,10 +38,7 @@ jobs:
           DB_PORT: ${{ secrets.DB_PORT }}
           DB_ENGINE: ${{ secrets.DB_ENGINE }}
           DEBUG_MODE: False
-          AWS_S3_REGION_NAME: ${{ AWS_S3_REGION_NAME }}
-          AWS_STORAGE_BUCKET_NAME: ${{ AWS_STORAGE_BUCKET_NAME }}
-          AWS_SECRET_ACCESS_KEY: ${{ AWS_SECRET_ACCESS_KEY }}
-          AWS_ACCESS_KEY_ID: ${{ AWS_ACCESS_KEY_ID }}
+
         run: python manage.py test
   build_and_pub:
     needs: [run_tests]
