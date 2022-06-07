@@ -8,7 +8,7 @@ jobs:
     runs-on: [ubuntu-latest]
     services:
       postgres_main:
-        image: postgres:latest
+        image: postgres:13
         env:
           POSTGRES_USER: ${{ secrets.DB_USER }}
           POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
@@ -25,6 +25,14 @@ jobs:
       - name: Install requirements
         run: pip install -r requirements.txt
       - name: Tests
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          POSTGRES_NAME: ${{ secrets.DB_NAME }}
+          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          POSTGRES_HOST: ${{ secrets.DB_HOST }}
+          POSTGRES_PORT: ${{ secrets.DB_PORT }}
+          DEBUG_MODE: False
         run: python manage.py test
   build_and_pub:
     needs: [run_tests]
