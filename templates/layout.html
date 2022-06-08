@@ -12,7 +12,6 @@
         <a class="nav-link" href="#">Home</a>
         <a class="nav-link" href="#">Library</a>
         <a class="nav-link" href="#">Search</a>
-
         {% if user.is_authenticated %}
             <a class="profile_link">{{ request.user.first_name }}</a>
         {% else %}
