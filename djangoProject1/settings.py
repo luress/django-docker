@@ -107,6 +107,7 @@ DB_IS_AVAIL = all([
         DB_DATABASE
 ])
 
+
 if DB_IS_AVAIL:
     DATABASES = {
         "default": {
