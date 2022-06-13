@@ -6,8 +6,74 @@ document.addEventListener('DOMContentLoaded', function() {
     const audio = document.querySelector('audio');
     const currentTimeContainer = document.getElementById('current-time');
     const playIconContainer = document.getElementById('play-button');
+
     let playState = 'play';
+    let are_playing = false
     let rAF = null;
+    let song_id = undefined
+
+    const play = () => {
+        playState = 'pause'
+        are_playing = true
+        audio.play();
+        requestAnimationFrame(whilePlaying);
+    }
+
+    const pause = () => {
+        audio.pause();
+        cancelAnimationFrame(rAF);
+        playState = 'play'
+        are_playing = false
+    }
+
+    const load_music = () => {
+        fetch('/musiclist/all')
+            .then(response => response.json())
+            .then(songs => {
+                for(let i = 0; i < songs.length; i++) {
+                    const song_area = document.createElement('div')
+                    const image = document.createElement('img')
+                    const title = document.createElement('p')
+
+                    const temp = document.querySelector('.song-list')
+                    temp.append(song_area)
+
+                    image.setAttribute('src', songs[i].image)
+                    image.className = 'song-img'
+
+                    title.innerHTML = songs[i].title
+
+                    song_area.append(image)
+                    song_area.append(title)
+
+
+                    song_area.addEventListener('click', () => {
+                        if(are_playing === false) {
+                            if(song_id !== songs[i].id){
+                                document.querySelector('.image-now-playing').setAttribute('src', songs[i].image)
+                                document.querySelector('.audioo').setAttribute('src', songs[i].audio_file)
+                                song_id = songs[i].id
+                                play()
+                                } else {
+                                    play()
+                                }
+                        } else {
+                            if(song_id === songs[i].id){
+                                pause()
+                            } else {
+                                document.querySelector('.image-now-playing').setAttribute('src', songs[i].image)
+                                document.querySelector('.audioo').setAttribute('src', songs[i].audio_file)
+                                song_id = songs[i].id
+                                play()
+                            }
+
+                            }
+                        });
+
+                }
+            })
+    }
+
 
 
     const whilePlaying = () => {
@@ -19,13 +85,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     playIconContainer.addEventListener('click', () => {
         if(playState === 'play') {
-            audio.play();
-            requestAnimationFrame(whilePlaying);
-            playState = 'pause';
+            play()
         } else {
-            audio.pause();
-            cancelAnimationFrame(rAF);
-            playState = 'play';
+            pause()
         }
     });
 
@@ -108,4 +170,5 @@ document.addEventListener('DOMContentLoaded', function() {
             requestAnimationFrame(whilePlaying);
         }
         });
+    load_music()
 })

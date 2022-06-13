@@ -76,19 +76,43 @@ html{
     margin: 0;
 }
 
-
-
-#play-button{
-    background: url("play-button-arrowhead.png") no-repeat;
+#play-button {
+    background: url("play.png") no-repeat;
     background-size: 30px;
     height: 30px;
     width: 30px;
     border: 0;
     cursor: pointer;
     top: 50%;
-    position: absolute;
-    transform: translate(0, -50%)
+    position: relative;
+
 }
+
+#previous-button{
+    background: url("previous.png") no-repeat;
+    background-size: 28px;
+    height: 30px;
+    width: 30px;
+    border: 0;
+    cursor: pointer;
+    top: 50%;
+    position: relative;
+
+}
+
+#next-button{
+    background: url("next.png") no-repeat;
+    background-size: 28px;
+    height: 30px;
+    width: 30px;
+    border: 0;
+    cursor: pointer;
+    top: 50%;
+    position: relative;
+
+}
+
+
 
 #music-slider{
     bottom: -6px;
@@ -116,7 +140,7 @@ input[type="range"]::before {
     content: "";
     width: var(--seek-before-width);
     height: 4px;
-    background-color: #fffc09;
+    background-color: #ffffff;
     cursor: pointer;
 }
 input[type="range"]::-webkit-slider-thumb {
@@ -126,7 +150,7 @@ input[type="range"]::-webkit-slider-thumb {
     height: 15px;
     width: 15px;
     border-radius: 50%;
-    background-color: #fffc09;
+    background-color: #ffffff;
     cursor: pointer;
     margin: -7px 0 0 0;
 }
@@ -152,7 +176,7 @@ input[type="range"]::-ms-fill-upper {
 #audio-info{
     bottom: 0;
     width: 100%;
-    background-color: #18227c;
+    background-color: #121212;
     height: 91px;
     padding: 0;
     margin: 0;
@@ -175,11 +199,11 @@ input[type="range"]::-ms-fill-upper {
 
 .audio-control{
     width: 40%;
-    display: flex;
+    display: inline;
     align-items: center;
     flex-direction: column;
-    justify-content: center;
-    -webkit-box-align: center;
+
+
 }
 
 .audio-volume{
@@ -194,10 +218,14 @@ input[type="range"]::-ms-fill-upper {
     width: 56px;
 }
 
+.audio-time{
+    float: left;
+}
 
-
-
-
+.song-img {
+    height: 80px;
+    width: 80px;
+}
 
 
 

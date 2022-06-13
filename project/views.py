@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.core.paginator import Paginator
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView
@@ -13,10 +13,13 @@ from .admin import UserCreationForm
 
 
 def index(request):
-    song = Song.objects.first()
-    return render(request, "index.html", {
-        "song": song
-    })
+    test = Song.objects.first()
+    songs = Song.objects.all()
+    return render(request, "index.html", {"test": test, "songs": songs})
+
+
+def music_data():
+    pass
 
 
 def ass(request):
@@ -73,3 +76,11 @@ class SignInView(FormView):
         else:
             messages.add_message(self.request, messages.INFO, 'Wrong email or password')
             return HttpResponseRedirect(reverse_lazy('signin'))
+
+
+def music(request, genre):
+    music_list = None
+    if genre == 'all':
+        music_list = Song.objects.all()
+    music_list = music_list.order_by('title').all()
+    return JsonResponse([song.serialize() for song in music_list], safe=False)

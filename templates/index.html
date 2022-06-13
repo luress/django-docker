@@ -3,21 +3,22 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-
-
+{% for song in songs %}
+{% endfor %}
+    <div class="song-list"></div>
     <footer id="audio-container">
         <input type="range" max="100" value="0" id="music-slider">
         <div id="audio-info">
             <div class="audio-now-playing">
-                <img class="image-now-playing" src={{ song.image.url }}>
+                <img class="image-now-playing">
             </div>
             <div class="audio-control">
-                <audio src="{{ song.audio_file.url }}" preload="metadata" loop></audio>
-                <span id="duration" class="time">0:00</span>
-                <span id="current-time" class="time">0:00</span>
-                <button id="play-button"></button>
+                <audio class="audioo" src="" preload="metadata" loop></audio>
+                <div class="audio-time"><span id="current-time" class="time">0:00</span>/<span id="duration" class="time">0:00</span></div>
+                <button class="audio-button" id="previous-button"></button>
+                <button class="audio-button" id="play-button"></button>
+                <button class="audio-button" id="next-button"></button>
             </div>
-
             <div class="audio-volume">
 
             </div>
