@@ -6,11 +6,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const audio = document.querySelector('audio');
     const currentTimeContainer = document.getElementById('current-time');
     const playIconContainer = document.getElementById('play-button');
+    const imageSong = document.querySelector('.image-now-playing')
+    const song = document.querySelector('.audioo')
 
+    let playlist = undefined
     let playState = 'play';
     let are_playing = false
     let rAF = null;
     let song_id = undefined
+    let tmp = 0
 
     const play = () => {
         playState = 'pause'
@@ -27,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const load_music = () => {
+
         fetch('/musiclist/all')
             .then(response => response.json())
             .then(songs => {
@@ -50,10 +55,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     song_area.addEventListener('click', () => {
                         if(are_playing === false) {
                             if(song_id !== songs[i].id){
-                                document.querySelector('.image-now-playing').setAttribute('src', songs[i].image)
-                                document.querySelector('.audioo').setAttribute('src', songs[i].audio_file)
+                                imageSong.setAttribute('src', songs[i].image)
+                                song.setAttribute('src', songs[i].audio_file)
                                 song_id = songs[i].id
                                 play()
+                                fetch(`/playlist/${song_id}`)
+                                    .then(response=>response.json())
+                                    .then(data => {
+                                        playlist=data
+                                        console.log(playlist)
+                                    })
+
                                 } else {
                                     play()
                                 }
@@ -61,9 +73,16 @@ document.addEventListener('DOMContentLoaded', function() {
                             if(song_id === songs[i].id){
                                 pause()
                             } else {
-                                document.querySelector('.image-now-playing').setAttribute('src', songs[i].image)
-                                document.querySelector('.audioo').setAttribute('src', songs[i].audio_file)
+                                imageSong.setAttribute('src', songs[i].image)
+                                song.setAttribute('src', songs[i].audio_file)
+                                fetch(`/playlist/${song_id}`)
+                                    .then(response=>response.json())
+                                    .then(data => {
+                                        playlist=data
+                                        console.log(playlist)
+                                    })
                                 song_id = songs[i].id
+
                                 play()
                             }
 
@@ -91,7 +110,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    document.getElementById('next-button').addEventListener('click', () => {
+        if(tmp+1 < playlist.length ) {
+            pause()
+            imageSong.setAttribute('src', playlist[tmp + 1].image)
+            song.setAttribute('src', playlist[tmp + 1].audio_file)
+            play()
+            tmp = tmp + 1
+        }
+    })
 
+    document.getElementById('previous-button').addEventListener('click', () => {
+        if(tmp-1 >= 0) {
+            pause()
+            imageSong.setAttribute('src', playlist[tmp - 1].image)
+            song.setAttribute('src', playlist[tmp - 1].audio_file)
+            play()
+            tmp = tmp - 1
+        }
+    })
 
     const calculateTime = (secs) => {
         const minutes = Math.floor(secs / 60);

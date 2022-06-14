@@ -84,3 +84,22 @@ def music(request, genre):
         music_list = Song.objects.all()
     music_list = music_list.order_by('title').all()
     return JsonResponse([song.serialize() for song in music_list], safe=False)
+
+
+def playlist_view(request, song_id):
+    playlist = Song.objects.filter(id__in=[i for i in range(song_id, song_id + 20)])
+    print(playlist)
+    last = Song.objects.last().id
+    first = Song.objects.first().id
+    if len(playlist) < 20:
+
+        playlist = Song.objects.filter(id__in=[i for i in range(song_id, last+1)]) | Song.objects.filter(
+            id__in=[i for i in range(song_id-20, song_id)])
+        print(playlist)
+        if len(playlist) < 20:
+            playlist = Song.objects.filter(id__in=[i for i in range(song_id+1, last+1)]) | Song.objects.filter(
+                id__in=[i for i in range(first, song_id)])
+            print(playlist)
+    result = [song.serialize() for song in playlist]
+    result.insert(0, Song.objects.get(id=song_id).serialize())
+    return JsonResponse(result, safe=False)

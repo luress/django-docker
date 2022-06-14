@@ -74,6 +74,7 @@ html{
     width: 100%;
     padding: 0;
     margin: 0;
+
 }
 
 #play-button {
@@ -84,31 +85,33 @@ html{
     border: 0;
     cursor: pointer;
     top: 50%;
-    position: relative;
+    position: absolute;
 
+    right: 50%;
 }
 
 #previous-button{
     background: url("previous.png") no-repeat;
-    background-size: 28px;
+    background-size: 25px;
     height: 30px;
     width: 30px;
     border: 0;
     cursor: pointer;
     top: 50%;
     position: relative;
-
+    left: 50%;
 }
 
 #next-button{
     background: url("next.png") no-repeat;
-    background-size: 28px;
+    background-size: 25px;
     height: 30px;
     width: 30px;
     border: 0;
     cursor: pointer;
     top: 50%;
     position: relative;
+    left: 50%;
 
 }
 
