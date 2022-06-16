@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const playIconContainer = document.getElementById('play-button');
     const imageSong = document.querySelector('.image-now-playing')
     const song = document.querySelector('.audioo')
+    const audioInfo = document.getElementById('audio-info')
+    const audioArtist = document.getElementById('audio-artist')
+    const audioTitle = document.getElementById('audio-title')
+
 
     let playlist = undefined
     let playState = 'play';
@@ -39,17 +43,32 @@ document.addEventListener('DOMContentLoaded', function() {
                     const song_area = document.createElement('div')
                     const image = document.createElement('img')
                     const title = document.createElement('p')
-
+                    const allContainer = document.createElement('div')
+                    const imageContainer = document.createElement('div')
+                    const artist = document.createElement('p')
+                    
                     const temp = document.querySelector('.song-list')
                     temp.append(song_area)
 
                     image.setAttribute('src', songs[i].image)
                     image.className = 'song-img'
 
+                    artist.innerHTML = songs[i].artist
                     title.innerHTML = songs[i].title
 
-                    song_area.append(image)
-                    song_area.append(title)
+
+                    song_area.className = 'song-area'
+
+                    imageContainer.className = 'song-area-image-container'
+                    imageContainer.append(image)
+                    
+                    allContainer.className = 'song-all-container'
+                    allContainer.append(imageContainer)
+                    allContainer.append(artist)
+                    allContainer.append(title)
+
+                    song_area.append(allContainer)
+
 
 
                     song_area.addEventListener('click', () => {
@@ -57,8 +76,14 @@ document.addEventListener('DOMContentLoaded', function() {
                             if(song_id !== songs[i].id){
                                 imageSong.setAttribute('src', songs[i].image)
                                 song.setAttribute('src', songs[i].audio_file)
+                                audioTitle.innerHTML = songs[i].title
+                                audioArtist.innerHTML = songs[i].artist
                                 song_id = songs[i].id
                                 play()
+                                audioInfo.classList.remove('hidden')
+                                audioInfo.style.bottom = '0'
+                                document.getElementById('music-slider').style.bottom = '90px'
+
                                 fetch(`/playlist/${song_id}`)
                                     .then(response=>response.json())
                                     .then(data => {
@@ -75,6 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             } else {
                                 imageSong.setAttribute('src', songs[i].image)
                                 song.setAttribute('src', songs[i].audio_file)
+                                audioTitle.innerHTML = songs[i].title
+                                audioArtist.innerHTML = songs[i].artist
                                 fetch(`/playlist/${song_id}`)
                                     .then(response=>response.json())
                                     .then(data => {
@@ -176,6 +203,8 @@ document.addEventListener('DOMContentLoaded', function() {
         displayBufferedAmount();
     });
 }
+
+
 
     musicSlider.addEventListener('input', (e) => {
         showRangeProgress(e.target);
